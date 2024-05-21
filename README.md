@@ -14,7 +14,7 @@
 - A Name generation formula is available for defining the name of created Recurring Donations & Opportunities
 - Close Date formulae are available for defining an acceptable close date period to match within
 - Stripe allows for Subscription values to be updated in later payments. This flow alone will not match changed value payments, and needs a second subscription.updated event flow to ensure this is caught.
-- This flow alone does not close Recurring Payments if a Sub is canceled. This will need a subscription.deleted event flow to handle this.
+- A second flow is included to manage subscription deletion events by closing the recurring Donation - edit to set sales process close status to comply with org installed in.
 - The flow creates barebones Contacts with just a name and email address. Needs some config to also bring in addresses, define record types, or pull in metadata entered in Stripe as per Org needs. How this is entered can vary by what is triggering Stripe, but is usually on the Charge>Billing or on Customer.
 
 ## Included
