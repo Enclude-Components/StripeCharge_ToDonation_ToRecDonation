@@ -7,6 +7,7 @@
 	</types>
 	<types>
 		<members>StripeCharge_toDonation_toRecurringDonation</members>
+		<members>StripeSubscription_CloseRecurringDonation</members>
 		<name>Flow</name>
 	</types>
 	<version>58.0</version>
