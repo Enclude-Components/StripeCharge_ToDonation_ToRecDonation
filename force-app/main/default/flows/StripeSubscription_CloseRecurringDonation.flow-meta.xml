@@ -21,6 +21,35 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
         <versionSegment>1</versionSegment>
     </actionCalls>
+    <actionCalls>
+        <name>CloseRecurringDonation</name>
+        <label>Close Recurring Donation</label>
+        <locationX>50</locationX>
+        <locationY>647</locationY>
+        <actionName>npe03__Recurring_Donation__c.npsp__Close_Recurring_Donation</actionName>
+        <actionType>quickAction</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>contextId</name>
+            <value>
+                <elementReference>Get_Recurring_Donation.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>npsp__ClosedReason__c</name>
+            <value>
+                <stringValue>Unknown</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>npsp__EndDate__c</name>
+            <value>
+                <elementReference>EndedAt</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>npe03__Recurring_Donation__c.npsp__Close_Recurring_Donation</nameSegment>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
     <apiVersion>60.0</apiVersion>
     <decisions>
         <name>Recurring_Donation_Exists</name>
@@ -39,7 +68,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Update_Recurring_Donation</targetReference>
+                <targetReference>CloseRecurringDonation</targetReference>
             </connector>
             <label>Exists</label>
         </rules>
@@ -92,39 +121,6 @@
         <object>npe03__Recurring_Donation__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
-    <recordUpdates>
-        <name>Update_Recurring_Donation</name>
-        <label>Update Recurring Donation</label>
-        <locationX>50</locationX>
-        <locationY>647</locationY>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Recurring_Donation.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>npsp__ClosedReason__c</field>
-            <value>
-                <stringValue>Unknown</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>npsp__EndDate__c</field>
-            <value>
-                <elementReference>EndedAt</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>npsp__Status__c</field>
-            <value>
-                <stringValue>Closed</stringValue>
-            </value>
-        </inputAssignments>
-        <object>npe03__Recurring_Donation__c</object>
-    </recordUpdates>
     <start>
         <locationX>56</locationX>
         <locationY>0</locationY>
