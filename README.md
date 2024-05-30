@@ -27,11 +27,12 @@
  - Todo: Record triggered flow to cleanly close Recurring Donations when a Subscription is deleted
 
 ## Actions
-- This flow generates Donation and Recurring Donation records from Stripe Charge Succeeded Events.
-- This flow makes up to three GETs from Stripe API for additional data, depending on the payment type.
+- Charge flow generates Donation and Recurring Donation records from Stripe Charge Succeeded Events.
+- Charge flow makes up to three GETs from Stripe API for additional data, depending on the payment type.
   - GET Customer for name data to use for Contact matching
   - GET Invoice for Subscription ID to use for Recurring Donation matching
   - GET Payment Intent for Lead Source
+- Subscription Deleted flow matches a Recurring Donation and calls NPSP Action to close RD cleanly.
 
 ## Deploy
 <a href="https://githubsfdeploy.herokuapp.com?owner=Enclude-Components&repo=StripeCharge_ToDonation_ToRecDonation&ref=main">
