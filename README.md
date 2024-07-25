@@ -3,7 +3,7 @@
 ## Prerequesites:
 - Install [Stripe Universal Connector](https://appexchange.salesforce.com/appxListingDetail?listingId=4dff0f8e-0b10-47c2-a3a3-f3905e7f7927)
 - Authorize Connector and activate paymentintent.succeeded Event
-- Brandon's [Find or Create Contact Flow](https://github.com/EncludeLtd-Donor-Import-Configurations/Find-or-Create-Contact-Flow)
+- Brandon's [Find or Create Contact Flow](https://github.com/EncludeLtd-Donor-Import-Configurations/Find-or-Create-Contact-Flow) has been included.
 
 
 [Stripe UC Documentation](https://docs.stripe.com/connectors/stripe-connector-for-salesforce/overview)
@@ -36,6 +36,7 @@
 
 ## Post-install
 - Edit the flows to bring in your required metadata. This varies per org.
+- Edit find or create contact to meet org requirements
 - Metadata requires you to loop over the metadata packet and assign each value to a variable based on label. These new variables can then be used further in the flow.
 
 ## Deploy
