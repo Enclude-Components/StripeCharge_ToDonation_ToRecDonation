@@ -34,6 +34,10 @@
   - GET Payment Intent for Lead Source
 - Subscription Deleted flow matches a Recurring Donation and calls NPSP Action to close RD cleanly.
 
+## Post-install
+- Edit the flows to bring in your required metadata. This varies per org.
+- Metadata requires you to loop over the metadata packet and assign each value to a variable based on label. These new variables can then be used further in the flow.
+
 ## Deploy
 <a href="https://githubsfdeploy.herokuapp.com?owner=Enclude-Components&repo=StripeCharge_ToDonation_ToRecDonation&ref=main">
   <img alt="Deploy to Salesforce"
