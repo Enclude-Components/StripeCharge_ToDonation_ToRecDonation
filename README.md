@@ -34,10 +34,16 @@
   - GET Payment Intent for Lead Source
 - Subscription Deleted flow matches a Recurring Donation and calls NPSP Action to close RD cleanly.
 
+## Install
+- First install [Stripe Universal Connector](https://appexchange.salesforce.com/appxListingDetail?listingId=4dff0f8e-0b10-47c2-a3a3-f3905e7f7927)
+- Set Permissions and Authorize an Account connection with Stripe.
+- In Salesforce > Stripe for Salesforce App > Setup Tab, go to API Version Settings and install the latest package to make flow invocables available.
+- Enable the Charge Succeeded webhook in Stripe Setup.
+
 ## Post-install
 - Edit the flows to bring in your required metadata. This varies per org.
-- Edit find or create contact to meet org requirements
-- Metadata requires you to loop over the metadata packet and assign each value to a variable based on label. These new variables can then be used further in the flow.
+- Edit find or create contact to meet org requirements.
+-  Accessing metadata requires a Loop over the metadata Output field from your chosen Stripe object, with a Decision element to path that content to the correct custom field. These new variables can then be used further in the flow.
 
 ## Deploy
 <a href="https://githubsfdeploy.herokuapp.com?owner=Enclude-Components&repo=StripeCharge_ToDonation_ToRecDonation&ref=main">
