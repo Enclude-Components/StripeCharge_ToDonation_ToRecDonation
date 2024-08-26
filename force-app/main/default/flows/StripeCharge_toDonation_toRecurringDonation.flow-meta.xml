@@ -22,37 +22,10 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
-        <name>GetCustomer</name>
-        <label>GetCustomer</label>
-        <locationX>567</locationX>
-        <locationY>492</locationY>
-        <actionName>stripeGC__v01_GetCustomers</actionName>
-        <actionType>apex</actionType>
-        <connector>
-            <targetReference>Type_Check</targetReference>
-        </connector>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>accountRecordId</name>
-            <value>
-                <elementReference>$Record.stripeGC__Stripe_Account__c</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>customer</name>
-            <value>
-                <elementReference>GetPI.customer</elementReference>
-            </value>
-        </inputParameters>
-        <nameSegment>stripeGC__v01_GetCustomers</nameSegment>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-        <versionSegment>1</versionSegment>
-    </actionCalls>
-    <actionCalls>
         <name>GetInvoice</name>
         <label>GetInvoice</label>
         <locationX>380</locationX>
-        <locationY>708</locationY>
+        <locationY>600</locationY>
         <actionName>stripeGC__v01_GetInvoices</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -83,7 +56,7 @@
         <actionName>stripeGC__v01_GetPaymentIntents</actionName>
         <actionType>apex</actionType>
         <connector>
-            <targetReference>GetCustomer</targetReference>
+            <targetReference>Type_Check</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -107,7 +80,7 @@
         <name>Build_RecDon</name>
         <label>Build RecDon Basic</label>
         <locationX>314</locationX>
-        <locationY>1248</locationY>
+        <locationY>1140</locationY>
         <assignmentItems>
             <assignToReference>RecurringDonation.npe03__Contact__c</assignToReference>
             <operator>Assign</operator>
@@ -193,7 +166,7 @@
         <name>BuildRecDonCustoms</name>
         <label>Build RecDon Customs</label>
         <locationX>314</locationX>
-        <locationY>1356</locationY>
+        <locationY>1248</locationY>
         <assignmentItems>
             <assignToReference>RecurringDonation.Name</assignToReference>
             <operator>Assign</operator>
@@ -209,7 +182,7 @@
         <name>Set_RecDon_for_Don_Update</name>
         <label>Set RecDon for Don Update</label>
         <locationX>50</locationX>
-        <locationY>1140</locationY>
+        <locationY>1032</locationY>
         <assignmentItems>
             <assignToReference>RecurringDonation.Id</assignToReference>
             <operator>Assign</operator>
@@ -225,7 +198,7 @@
         <name>Does_RecDon_Exist</name>
         <label>Does RecDon Exist</label>
         <locationX>182</locationX>
-        <locationY>1032</locationY>
+        <locationY>924</locationY>
         <defaultConnector>
             <targetReference>Stripe_Find_Contact_Recurring</targetReference>
         </defaultConnector>
@@ -250,7 +223,7 @@
         <name>SubscriptionOnInvoice</name>
         <label>SubscriptionOnInvoice</label>
         <locationX>380</locationX>
-        <locationY>816</locationY>
+        <locationY>708</locationY>
         <defaultConnector>
             <targetReference>Stripe_Find_Contact_One_Off</targetReference>
         </defaultConnector>
@@ -275,7 +248,7 @@
         <name>Type_Check</name>
         <label>Type Check</label>
         <locationX>567</locationX>
-        <locationY>600</locationY>
+        <locationY>492</locationY>
         <defaultConnector>
             <targetReference>Stripe_Find_Contact_One_Off</targetReference>
         </defaultConnector>
@@ -322,21 +295,31 @@ If (Sub): Get PI &amp; Customer, Get Invoice, use SubID to find existing Recurri
         <scale>2</scale>
     </formulas>
     <formulas>
+        <name>CustEmailFormula</name>
+        <dataType>String</dataType>
+        <expression>{!CastCharge.billingDetails.email}</expression>
+    </formulas>
+    <formulas>
+        <name>CustNameFormula</name>
+        <dataType>String</dataType>
+        <expression>{!CastCharge.billingDetails.name}</expression>
+    </formulas>
+    <formulas>
         <name>FName</name>
         <dataType>String</dataType>
-        <expression>LEFT({!GetCustomer.name}, FIND( &quot; &quot;, {!GetCustomer.name} ) -1 )</expression>
+        <expression>LEFT({!CustNameFormula}, FIND( &quot; &quot;, {!CustNameFormula} ) -1 )</expression>
     </formulas>
     <formulas>
         <name>LName</name>
         <dataType>String</dataType>
-        <expression>RIGHT({!GetCustomer.name}, LEN({!GetCustomer.name}) - FIND(&quot; &quot;, {!GetCustomer.name}))</expression>
+        <expression>RIGHT({!CustNameFormula}, LEN({!CustNameFormula}) - FIND(&quot; &quot;, {!CustNameFormula}))</expression>
     </formulas>
     <formulas>
         <name>OOFFDonNameGen</name>
         <dataType>String</dataType>
         <expression>Trim(Left(
 &quot;OOFF&quot;&amp;
-{!GetCustomer.name}
+{!CustNameFormula}
 &amp;&quot;-&quot;&amp; text(datevalue(now())) &amp;&quot;-&quot;&amp;
 Text({!CurrencyPaid})
 ,80))</expression>
@@ -357,7 +340,7 @@ Text({!CurrencyPaid})
         <expression>Trim(Left(
 &quot;SUB&quot;
 &amp;&quot;-&quot;&amp; text(datevalue(now())) &amp;&quot;-&quot;&amp;
-{!GetCustomer.name}
+{!CustNameFormula}
 &amp;&quot;-€&quot;&amp;Text({!CurrencyPaid})
 ,80))</expression>
     </formulas>
@@ -396,7 +379,7 @@ Text({!CurrencyPaid})
         <name>Create_Recurring_Donation</name>
         <label>Create Recurring Donation</label>
         <locationX>314</locationX>
-        <locationY>1464</locationY>
+        <locationY>1356</locationY>
         <connector>
             <targetReference>Update_Current_Donation</targetReference>
         </connector>
@@ -406,7 +389,7 @@ Text({!CurrencyPaid})
         <name>Create_Single_Donation</name>
         <label>Create Single Donation</label>
         <locationX>567</locationX>
-        <locationY>2148</locationY>
+        <locationY>2040</locationY>
         <inputAssignments>
             <field>Amount</field>
             <value>
@@ -462,7 +445,7 @@ Text({!CurrencyPaid})
         <name>Get_Recurring_Donation</name>
         <label>Get Recurring Donation</label>
         <locationX>182</locationX>
-        <locationY>924</locationY>
+        <locationY>816</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Does_RecDon_Exist</targetReference>
@@ -483,7 +466,7 @@ Text({!CurrencyPaid})
         <name>Update_Current_Donation</name>
         <label>Update Current Donation</label>
         <locationX>182</locationX>
-        <locationY>1656</locationY>
+        <locationY>1548</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>CloseDate</field>
@@ -572,7 +555,7 @@ Text({!CurrencyPaid})
         <name>Stripe_Find_Contact_One_Off</name>
         <label>Find Contact One Off</label>
         <locationX>567</locationX>
-        <locationY>2040</locationY>
+        <locationY>1932</locationY>
         <connector>
             <targetReference>Create_Single_Donation</targetReference>
         </connector>
@@ -580,7 +563,7 @@ Text({!CurrencyPaid})
         <inputAssignments>
             <name>Email</name>
             <value>
-                <elementReference>GetCustomer.email</elementReference>
+                <elementReference>CustEmailFormula</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -601,7 +584,7 @@ Text({!CurrencyPaid})
         <name>Stripe_Find_Contact_Recurring</name>
         <label>Find Contact Recurring</label>
         <locationX>314</locationX>
-        <locationY>1140</locationY>
+        <locationY>1032</locationY>
         <connector>
             <targetReference>Build_RecDon</targetReference>
         </connector>
@@ -609,7 +592,7 @@ Text({!CurrencyPaid})
         <inputAssignments>
             <name>Email</name>
             <value>
-                <elementReference>GetCustomer.email</elementReference>
+                <elementReference>CustEmailFormula</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
