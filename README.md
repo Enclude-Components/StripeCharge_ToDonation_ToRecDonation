@@ -41,6 +41,7 @@
 - Set Permissions and Authorize an Account connection with Stripe.
 - In Salesforce > Stripe for Salesforce App > Setup Tab, go to API Version Settings and install the latest package to make flow invocables available.
 - Enable the Charge Succeeded webhook in Stripe Setup.
+- Deploy flows from below button.
 
 ## Post-install
 - Edit the flows to bring in your required metadata. This varies per org.
