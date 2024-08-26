@@ -2,8 +2,10 @@
 
 ## Prerequesites:
 - Install [Stripe Universal Connector](https://appexchange.salesforce.com/appxListingDetail?listingId=4dff0f8e-0b10-47c2-a3a3-f3905e7f7927)
-- Authorize Connector and activate paymentintent.succeeded Event
+- Authorize Connector and then activate charge.succeeded, subscription.updated and subscription.deleted Events.
+- Install invocables via Stripe App UI.
 - Brandon's [Find or Create Contact Flow](https://github.com/EncludeLtd-Donor-Import-Configurations/Find-or-Create-Contact-Flow) has been included.
+- Can only deploy flows successfully once invocables in place.
 
 
 [Stripe UC Documentation](https://docs.stripe.com/connectors/stripe-connector-for-salesforce/overview)
